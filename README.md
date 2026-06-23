@@ -1,4 +1,4 @@
-﻿# MPM Ladder
+# MPM Ladder
 
 MPM Ladder is a small benchmark harness for measuring how much judgment a
 workflow needs.
@@ -71,6 +71,7 @@ Human gates:  1/6
 ## Project Layout
 
 ```text
+PROJECT_MEMORY.md                  Product context and design memory
 data/models.json                     Model tiers and prices
 examples/workflows/ci-recovery.json  Sample workflow definition
 examples/runs/ci-recovery-runs.json  Sample benchmark attempts
@@ -94,4 +95,3 @@ tests/                               Standard-library tests
 - Add per-step MPM instead of only workflow-level MPM.
 - Add prompt caching and batch pricing profiles.
 - Add CI templates for recurring SOP benchmark runs.
-
