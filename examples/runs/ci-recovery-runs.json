@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "workflow_id": "ci-recovery",
+  "attempts": [
+    {
+      "model_id": "gpt-5.5",
+      "attempt": 1,
+      "status": "pass",
+      "duration_seconds": 420
+    },
+    {
+      "model_id": "gpt-5.5",
+      "attempt": 2,
+      "status": "pass",
+      "duration_seconds": 398
+    },
+    {
+      "model_id": "gpt-5.5",
+      "attempt": 3,
+      "status": "pass",
+      "duration_seconds": 412
+    },
+    {
+      "model_id": "claude-sonnet-4.6",
+      "attempt": 1,
+      "status": "pass",
+      "duration_seconds": 510
+    },
+    {
+      "model_id": "claude-sonnet-4.6",
+      "attempt": 2,
+      "status": "pass",
+      "duration_seconds": 536
+    },
+    {
+      "model_id": "claude-sonnet-4.6",
+      "attempt": 3,
+      "status": "fail",
+      "duration_seconds": 544,
+      "failure_label": "DOC_GAP",
+      "actionable": true
+    },
+    {
+      "model_id": "gpt-5.4-mini",
+      "attempt": 1,
+      "status": "pass",
+      "duration_seconds": 610
+    },
+    {
+      "model_id": "gpt-5.4-mini",
+      "attempt": 2,
+      "status": "fail",
+      "duration_seconds": 580,
+      "failure_label": "DOC_GAP",
+      "actionable": true
+    },
+    {
+      "model_id": "gpt-5.4-mini",
+      "attempt": 3,
+      "status": "pass",
+      "duration_seconds": 624
+    },
+    {
+      "model_id": "claude-haiku-4.5",
+      "attempt": 1,
+      "status": "fail",
+      "duration_seconds": 690,
+      "failure_label": "DOC_GAP",
+      "actionable": true
+    },
+    {
+      "model_id": "claude-haiku-4.5",
+      "attempt": 2,
+      "status": "pass",
+      "duration_seconds": 675
+    },
+    {
+      "model_id": "claude-haiku-4.5",
+      "attempt": 3,
+      "status": "fail",
+      "duration_seconds": 704,
+      "failure_label": "MODEL_ERROR",
+      "actionable": false
+    },
+    {
+      "model_id": "gpt-5.4-nano",
+      "attempt": 1,
+      "status": "fail",
+      "duration_seconds": 760,
+      "failure_label": "DOC_GAP",
+      "actionable": true
+    },
+    {
+      "model_id": "gpt-5.4-nano",
+      "attempt": 2,
+      "status": "fail",
+      "duration_seconds": 744,
+      "failure_label": "MODEL_ERROR",
+      "actionable": false
+    },
+    {
+      "model_id": "gpt-5.4-nano",
+      "attempt": 3,
+      "status": "fail",
+      "duration_seconds": 782,
+      "failure_label": "DOC_GAP",
+      "actionable": true
+    },
+    {
+      "model_id": "gpt-5-nano",
+      "attempt": 1,
+      "status": "fail",
+      "duration_seconds": 820,
+      "failure_label": "MODEL_ERROR",
+      "actionable": false
+    },
+    {
+      "model_id": "gpt-5-nano",
+      "attempt": 2,
+      "status": "fail",
+      "duration_seconds": 805,
+      "failure_label": "MODEL_ERROR",
+      "actionable": false
+    },
+    {
+      "model_id": "gpt-5-nano",
+      "attempt": 3,
+      "status": "fail",
+      "duration_seconds": 833,
+      "failure_label": "MODEL_ERROR",
+      "actionable": false
+    }
+  ]
+}

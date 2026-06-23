@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mpm-ladder"
+version = "0.1.0"
+description = "Workflow MPM and automation maturity benchmark harness."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+  { name = "MPM Ladder" }
+]
+dependencies = []
+
+[project.scripts]
+mpm-ladder = "mpm_ladder.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["mpm_ladder*"]

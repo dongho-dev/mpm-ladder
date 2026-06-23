@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "currency": "USD",
+  "price_unit": "1M tokens",
+  "tiers": [
+    {
+      "id": "T4",
+      "rank": 0,
+      "label": "Nano / local-like worker",
+      "description": "Extremely low-cost executor for narrow, well-specified workflows."
+    },
+    {
+      "id": "T3",
+      "rank": 1,
+      "label": "Cheap worker",
+      "description": "Low-cost agent for documentation robustness and known-path replay."
+    },
+    {
+      "id": "T2",
+      "rank": 2,
+      "label": "Balanced worker",
+      "description": "Cost-efficient practical executor for normal automation runs."
+    },
+    {
+      "id": "T1",
+      "rank": 3,
+      "label": "Senior executor",
+      "description": "Higher-judgment agent for design, review, and ambiguous failures."
+    },
+    {
+      "id": "T0",
+      "rank": 4,
+      "label": "Oracle",
+      "description": "Frontier executor used to prove feasibility and build golden traces."
+    }
+  ],
+  "models": [
+    {
+      "id": "gpt-5-nano",
+      "provider": "OpenAI",
+      "tier": "T4",
+      "input_per_mtok": 0.05,
+      "output_per_mtok": 0.4,
+      "notes": "Sample pricing baseline; refresh before production use."
+    },
+    {
+      "id": "gpt-5.4-nano",
+      "provider": "OpenAI",
+      "tier": "T4",
+      "input_per_mtok": 0.2,
+      "output_per_mtok": 1.25,
+      "notes": "Sample pricing baseline; refresh before production use."
+    },
+    {
+      "id": "claude-haiku-4.5",
+      "provider": "Anthropic",
+      "tier": "T3",
+      "input_per_mtok": 1.0,
+      "output_per_mtok": 5.0,
+      "notes": "Sample pricing baseline; refresh before production use."
+    },
+    {
+      "id": "gpt-5.4-mini",
+      "provider": "OpenAI",
+      "tier": "T3",
+      "input_per_mtok": 0.75,
+      "output_per_mtok": 4.5,
+      "notes": "Sample pricing baseline; refresh before production use."
+    },
+    {
+      "id": "claude-sonnet-4.6",
+      "provider": "Anthropic",
+      "tier": "T2",
+      "input_per_mtok": 3.0,
+      "output_per_mtok": 15.0,
+      "notes": "Sample pricing baseline; refresh before production use."
+    },
+    {
+      "id": "claude-opus-4.8",
+      "provider": "Anthropic",
+      "tier": "T1",
+      "input_per_mtok": 5.0,
+      "output_per_mtok": 25.0,
+      "notes": "Sample pricing baseline; refresh before production use."
+    },
+    {
+      "id": "gpt-5.5",
+      "provider": "OpenAI",
+      "tier": "T0",
+      "input_per_mtok": 5.0,
+      "output_per_mtok": 30.0,
+      "notes": "Reasoning effort is a run setting, not a separate model entry."
+    },
+    {
+      "id": "claude-fable-5",
+      "provider": "Anthropic",
+      "tier": "T0",
+      "input_per_mtok": 10.0,
+      "output_per_mtok": 50.0,
+      "notes": "High-end sample row; validate current access and price before use."
+    }
+  ],
+  "sources": [
+    {
+      "name": "OpenAI API pricing",
+      "url": "https://openai.com/api/pricing/"
+    },
+    {
+      "name": "OpenAI model docs",
+      "url": "https://developers.openai.com/api/docs/models"
+    },
+    {
+      "name": "Claude pricing",
+      "url": "https://claude.com/pricing"
+    }
+  ]
+}

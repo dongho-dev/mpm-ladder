@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "id": "ci-recovery",
+  "name": "CI recovery workflow",
+  "kind": "workflow",
+  "target_mpm": "T2",
+  "run_profile": {
+    "input_tokens": 100000,
+    "output_tokens": 20000,
+    "tool_cost_usd": 0.0
+  },
+  "steps": [
+    {
+      "id": "preflight",
+      "name": "Inspect branch state and package manager",
+      "category": "script",
+      "executor": "script"
+    },
+    {
+      "id": "run-checks",
+      "name": "Run tests, lint, and build",
+      "category": "ci",
+      "executor": "ci"
+    },
+    {
+      "id": "classify-failure",
+      "name": "Classify failing output into known labels",
+      "category": "agent",
+      "executor": "T2"
+    },
+    {
+      "id": "known-recovery",
+      "name": "Apply known recovery recipe",
+      "category": "rule",
+      "executor": "rule"
+    },
+    {
+      "id": "unknown-debug",
+      "name": "Diagnose unknown failures and propose a patch",
+      "category": "agent",
+      "executor": "T1"
+    },
+    {
+      "id": "merge-gate",
+      "name": "Approve production-impacting changes",
+      "category": "gate",
+      "executor": "human"
+    }
+  ],
+  "success_criteria": [
+    "The failing check is reproduced locally or marked environment-only.",
+    "The final command set is recorded in the trace.",
+    "A passing verification command exists for the selected fix.",
+    "Production-impacting changes are stopped at a human gate."
+  ]
+}
