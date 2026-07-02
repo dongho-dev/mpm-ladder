@@ -2,7 +2,7 @@
 
 [English](README.en.md)
 
-로컬/온프레미스 환경에서 워크플로우별 최소 실행자 티어(MPM)를 측정하고 버전 관리하는 CLI와 대시보드입니다.
+워크플로우별 Minimum Pass Model(MPM)을 측정하고, 더 낮은 모델에서도 통과하도록 개선 과정을 추적하는 CLI입니다.
 
 MPM Ladder의 핵심 질문은 다음입니다.
 

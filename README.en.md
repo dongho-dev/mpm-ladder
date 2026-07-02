@@ -2,7 +2,7 @@
 
 [한국어](README.md)
 
-A local-first CLI and dashboard for measuring and versioning the minimum passing executor tier (MPM) for each workflow.
+A CLI for measuring each workflow's Minimum Pass Model (MPM) and tracking improvements toward lower-cost passing models.
 
 MPM Ladder asks one core question:
 
