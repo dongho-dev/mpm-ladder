@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MPM 래더 대시보드</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header>
+    <div class="wrap topbar">
+      <div>
+        <h1>MPM 래더 대시보드</h1>
+        <p class="subtitle" id="workflowSubtitle">데이터를 불러오는 중</p>
+      </div>
+      <div class="controls">
+        <label>
+          목표 프로파일
+          <select id="objective">
+            <option value="cost_saver">비용 절감</option>
+            <option value="reliability_first">신뢰성 우선</option>
+            <option value="learning_probe">학습 탐색</option>
+          </select>
+        </label>
+        <label>
+          최소 성공률
+          <input id="minPassRate" type="number" min="0" max="1" step="0.05" value="0.90">
+        </label>
+        <label>
+          최소 시도 수
+          <input id="minAttempts" type="number" min="1" max="50" step="1" value="3">
+        </label>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <section class="source-panel" aria-label="데이터 소스">
+        <div class="workspace-grid">
+          <label>
+            워크스페이스 JSON
+            <input id="workspacePath" type="text" spellcheck="false">
+          </label>
+          <button id="loadWorkspace" type="button">워크스페이스 불러오기</button>
+          <label>
+            워크플로우
+            <select id="workflowSelect"></select>
+          </label>
+        </div>
+        <div class="source-grid">
+          <label>
+            모델 JSON
+            <input id="modelsPath" type="text" spellcheck="false">
+          </label>
+          <label>
+            워크플로우 JSON
+            <input id="workflowPath" type="text" spellcheck="false">
+          </label>
+          <label>
+            실행 로그 JSON
+            <input id="runsPath" type="text" spellcheck="false">
+          </label>
+          <button id="loadPaths" type="button">경로 불러오기</button>
+        </div>
+        <div class="file-grid">
+          <label>
+            모델 파일
+            <input id="modelsFile" type="file" accept="application/json,.json">
+          </label>
+          <label>
+            워크플로우 파일
+            <input id="workflowFile" type="file" accept="application/json,.json">
+          </label>
+          <label>
+            실행 로그 파일
+            <input id="runsFile" type="file" accept="application/json,.json">
+          </label>
+          <button id="loadFiles" type="button">파일 반영</button>
+        </div>
+        <div class="source-status" id="sourceStatus"></div>
+      </section>
+
+      <section class="summary-grid" aria-label="요약">
+        <article class="metric blue">
+          <div class="label">관측 MPM</div>
+          <div class="value" id="observedMpm">-</div>
+          <div class="note" id="observedNote"></div>
+        </article>
+        <article class="metric teal">
+          <div class="label">신뢰 MPM</div>
+          <div class="value" id="reliableMpm">-</div>
+          <div class="note" id="reliableNote"></div>
+        </article>
+        <article class="metric amber">
+          <div class="label">목표</div>
+          <div class="value" id="targetMpm">-</div>
+          <div class="note" id="targetNote"></div>
+        </article>
+        <article class="metric green">
+          <div class="label">자동화</div>
+          <div class="value" id="automationValue">-</div>
+          <div class="note" id="automationNote"></div>
+        </article>
+        <article class="metric violet">
+          <div class="label">최저 성공 비용</div>
+          <div class="value" id="bestCost">-</div>
+          <div class="note" id="bestCostNote"></div>
+        </article>
+      </section>
+
+      <div class="layout">
+        <section class="panel">
+          <div class="panel-head">
+            <h2>모델 실행 결과</h2>
+            <span class="pill" id="profilePill"></span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>모델</th>
+                  <th>티어</th>
+                  <th>성공</th>
+                  <th>성공률</th>
+                  <th>실행 비용</th>
+                  <th>성공 비용</th>
+                  <th>평균 시간</th>
+                  <th>AFR</th>
+                  <th>판정</th>
+                </tr>
+              </thead>
+              <tbody id="modelRows"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <aside class="stack">
+          <section class="panel">
+            <div class="panel-head">
+              <h2>작업 정의</h2>
+              <span class="pill" id="versionPill"></span>
+            </div>
+            <div class="semantic" id="semanticWorkflow"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <h2>워크플로우 구성</h2>
+              <span class="pill" id="coveragePill"></span>
+            </div>
+            <div class="workflow" id="workflowSteps"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <h2>실패 라벨</h2>
+              <span class="pill" id="failurePill"></span>
+            </div>
+            <div class="chart" id="failureChart"></div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

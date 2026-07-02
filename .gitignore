@@ -4,6 +4,9 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 .venv/
+.tools/
+.mpm-ladder/reports/
+.mpm-ladder/traces/
 dist/
 build/
 *.egg-info/

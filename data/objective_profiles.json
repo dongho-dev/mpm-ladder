@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "objective_profiles": {
+    "cost_saver": {
+      "mode": "minimize_cost",
+      "label": "Cost saver",
+      "constraints": {
+        "min_pass_rate": 0.9,
+        "min_attempts": 3,
+        "max_quality_regression": 0.02
+      },
+      "tie_breakers": [
+        "lower_latency",
+        "lower_escalation_rate",
+        "higher_actionable_failure_rate"
+      ]
+    },
+    "reliability_first": {
+      "mode": "maximize_reliability",
+      "label": "Reliability first",
+      "constraints": {
+        "min_pass_rate": 1.0,
+        "min_attempts": 3,
+        "require_human_gate_for": [
+          "production_impacting_change",
+          "credential_change",
+          "data_migration"
+        ]
+      },
+      "tie_breakers": [
+        "lower_risk",
+        "lower_latency",
+        "lower_cost"
+      ]
+    },
+    "learning_probe": {
+      "mode": "maximize_learning",
+      "label": "Learning probe",
+      "constraints": {
+        "min_pass_rate": 0.0,
+        "min_attempts": 3,
+        "max_cost_per_run_usd": 0.2
+      },
+      "tie_breakers": [
+        "higher_doc_gap_rate",
+        "higher_rule_gap_rate",
+        "higher_script_gap_rate"
+      ]
+    }
+  }
+}

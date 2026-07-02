@@ -217,10 +217,59 @@ price comparison CLI
 workflow evaluation CLI
 MPM report
 unit tests
+local workspace registry
+workflow version snapshots
+static local dashboard
 ```
 
 Provider execution adapters come later. The first durable value is scoring and
 reporting, because that defines the measurement protocol.
+
+## Local-First Customer Boundary
+
+Customer workflows should live where the customer's operational assets already
+live: repositories, CI systems, runbooks, internal tools, and on-premises
+artifact stores. MPM Ladder registers and measures those workflows; it should
+not require customers to upload sensitive workflow definitions or traces to a
+hosted data plane.
+
+Default storage is a file-based workspace:
+
+```text
+.mpm-ladder/
+  workspace.json
+  workflows/
+  runs/
+  traces/
+  reports/
+```
+
+The product can later add an on-prem server or optional cloud control plane, but
+the data plane should remain customer-local by default.
+
+## Versioned Workflow Evidence
+
+The workflow is the semantic task definition. Measurements are evidence about a
+specific workflow version.
+
+```text
+workflow definition
++ workflow version/hash
++ run set
++ scoring version
++ model price hash
+= MPM report
+```
+
+This is required to prove improvement. A better document, new rule, or stronger
+script should create a new workflow version so MPM Ladder can show changes such
+as:
+
+```text
+reliable MPM: T2 -> T3
+automation coverage: 50% -> 67%
+DOC_GAP failures: 4 -> 1
+```
 
 ## Near-Term Product Direction
 

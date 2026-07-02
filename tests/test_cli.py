@@ -4,8 +4,10 @@ from mpm_ladder.cli import (
     RunProfile,
     build_report,
     get_tier_ranks,
+    initial_workspace_doc,
     model_cost,
     observed_mpm,
+    reliable_mpm,
     summarize_model_runs,
     workflow_coverage,
 )
@@ -63,6 +65,24 @@ class MpmLadderTests(unittest.TestCase):
         self.assertEqual(mpm["model_id"], "cheap")
         self.assertEqual(mpm["tier"], "T3")
 
+    def test_reliable_mpm_requires_attempt_count_and_pass_rate(self):
+        profile = RunProfile(input_tokens=100_000, output_tokens=20_000)
+        runs = {
+            "attempts": [
+                {"model_id": "nano", "status": "pass"},
+                {"model_id": "cheap", "status": "pass"},
+                {"model_id": "cheap", "status": "fail", "failure_label": "DOC_GAP"},
+                {"model_id": "cheap", "status": "pass"},
+                {"model_id": "balanced", "status": "pass"},
+                {"model_id": "balanced", "status": "pass"},
+                {"model_id": "balanced", "status": "pass"},
+            ]
+        }
+        summaries = summarize_model_runs(self.models, runs, profile)
+        mpm = reliable_mpm(summaries, get_tier_ranks(self.models), min_pass_rate=0.9, min_attempts=3)
+        self.assertEqual(mpm["model_id"], "balanced")
+        self.assertEqual(mpm["tier"], "T2")
+
     def test_workflow_coverage_separates_script_agent_and_human(self):
         workflow = {
             "steps": [
@@ -95,6 +115,36 @@ class MpmLadderTests(unittest.TestCase):
         report = build_report(self.models, workflow, runs, profile)
         self.assertEqual(report["observed_mpm"]["tier"], "T3")
         self.assertTrue(report["target_met"])
+
+    def test_report_includes_versioned_workflow_evidence(self):
+        profile = RunProfile(input_tokens=100_000, output_tokens=20_000)
+        workflow = {
+            "id": "sample",
+            "name": "Sample",
+            "version": {"id": "v1"},
+            "target_mpm": "T2",
+            "steps": [{"executor": "script"}, {"executor": "T2"}],
+        }
+        runs = {
+            "run_set_id": "sample-run",
+            "workflow_id": "sample",
+            "workflow_version": "v1",
+            "attempts": [
+                {"model_id": "cheap", "status": "pass"},
+                {"model_id": "balanced", "status": "pass"},
+            ],
+        }
+        report = build_report(self.models, workflow, runs, profile, min_pass_rate=0.5, min_attempts=1)
+        self.assertEqual(report["workflow_version"], "v1")
+        self.assertTrue(report["workflow_hash"].startswith("sha256:"))
+        self.assertEqual(report["measurement"]["run_set_id"], "sample-run")
+        self.assertEqual(report["reliable_mpm"]["tier"], "T3")
+
+    def test_initial_workspace_doc_registers_local_workflow(self):
+        workspace = initial_workspace_doc()
+        self.assertEqual(workspace["privacy_boundary"], "customer_local")
+        self.assertEqual(workspace["storage_mode"], "local_files")
+        self.assertEqual(workspace["workflows"][0]["id"], "ci-recovery")
 
 
 if __name__ == "__main__":
